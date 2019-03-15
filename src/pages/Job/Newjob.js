@@ -108,6 +108,29 @@ class Newjob extends PureComponent {
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeFooterToolbar, { passive: true });
+
+    // Post
+axios.post('https://digitalsignature.herokuapp.com/api/Values', {
+DocID:'123456',
+Date:'1',
+Coproduct:"A1",
+Applicant:"MR.Call",
+Activities:"ABS",
+Plan:"A23",
+Subplan:"AA23",
+Dealer:"Shop1",
+Category:"Cat1",
+Startdate:"101019",
+Enddate:"121219",
+})
+.then(function (response) {
+  console.log(response);
+})
+.catch(function (error) {
+  console.log(error);
+});
+// Post
+
     // Test Axios
     axios.get('https://digitalsignature.herokuapp.com/api/Values')
   .then(function (response) {
@@ -123,6 +146,24 @@ class Newjob extends PureComponent {
   });
   // End Axios
   }
+
+// For Get API
+UserList() {
+  $.getJSON('https://randomuser.me/api/')
+    .then(({ results }) => this.setState({ person: results }));
+}
+
+render() {
+  const persons = this.state.person.map((item, i) => (
+    <div>
+      <h1>{ item.name.first }</h1>
+      <span>{ item.cell }, { item.email }</span>
+    </div>
+  ));}
+// For Get API
+
+
+
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeFooterToolbar);
@@ -209,8 +250,7 @@ class Newjob extends PureComponent {
 
   
     return (
-      
-      
+     
       <PageHeaderWrapper
         title="สร้างแผนงาน"
         // content="รายละเอียด"
@@ -231,7 +271,7 @@ class Newjob extends PureComponent {
                   <Form.Item label={fieldLabels.DocID}>
                     {getFieldDecorator('DocID', {
                       rules: [{ required: true, message: 'เลขที่เอกสาร' }],
-                    })(<Input placeholder="" name="DocID" disabled/>)}
+                    })(<Input placeholder="" key="DocID" disabled/>)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -241,7 +281,7 @@ class Newjob extends PureComponent {
                   <Form.Item label={fieldLabels.DatePicker}>
                     {getFieldDecorator('DatePicker', {
                       rules: [{ required: true, message: 'วันที่' }],
-                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} />)}
+                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} key="Date"/>)}
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24} />
@@ -253,7 +293,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('CoProduct', {
                       rules: [{ required: true, message: 'หน่วยงาน' }],
                     })(
-                      <Select placeholder="--เลือกผลิตภัณฑ์--">
+                      <Select placeholder="--เลือกผลิตภัณฑ์--" key="Unit">
                         <Option value="ผลิตภัณฑ์ 1">ผลิตภัณฑ์ 1</Option>
                         <Option value="ผลิตภัณฑ์ 2">ผลิตภัณฑ์ 2</Option>
                       </Select>
@@ -269,7 +309,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('Applicant', {
                       rules: [{ required: true, message: 'ผู้ขออนุมัติ' }],
                     })(
-                      <Select placeholder="--ผู้ขออนุมัติ--">
+                      <Select placeholder="--ผู้ขออนุมัติ--" key="Applicant">
                         <Option value="ผู้ขออนุมัติ 1">ผู้ขออนุมัติ 1</Option>
                         <Option value="ผู้ขออนุมัติ 2">ผู้ขออนุมัติ 2</Option>
                       </Select>
@@ -299,7 +339,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('Activitie', {
                       rules: [{ required: true, message: 'กรุณาเลือกกิจกรรม' }],
                     })(
-                      <Select placeholder="--กิจกรรม--">
+                      <Select placeholder="--กิจกรรม--" key="Activities">
                         <Option value="กิจกรรม 1">กิจกรรม 1</Option>
                         <Option value="กิจกรรม 2">กิจกรรม 2</Option>
                       </Select>
@@ -315,7 +355,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('Plan', {
                       rules: [{ required: true, message: 'แผนงาน' }],
                     })(
-                      <Select placeholder="--แผนงาน--">
+                      <Select placeholder="--แผนงาน--" key="Plan">
                         <Option value="แผนงาน 1">แผนงาน 1</Option>
                         <Option value="แผนงาน 2">แผนงาน 2</Option>
                       </Select>
@@ -327,7 +367,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('Subplan', {
                       rules: [{ required: true, message: 'แผนงานย่อย' }],
                     })(
-                      <Select placeholder="--แผนงานย่อย--">
+                      <Select placeholder="--แผนงานย่อย--" key="Subplan">
                         <Option value="แผนงานย่อย 1">แผนงานย่อย 1</Option>
                         <Option value="แผนงานย่อย 2">แผนงานย่อย 2</Option>
                       </Select>
@@ -342,7 +382,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('Agent', {
                       rules: [{ required: true, message: 'ตัวแทนจำหน่าย' }],
                     })(
-                      <Select placeholder="--ตัวแทนจำหน่าย--">
+                      <Select placeholder="--ตัวแทนจำหน่าย--" key="Dealer">
                         <Option value="ตัวแทนจำหน่าย 1">ตัวแทนจำหน่าย 1</Option>
                         <Option value="ตัวแทนจำหน่าย 2">ตัวแทนจำหน่าย 2</Option>
                       </Select>
@@ -368,7 +408,7 @@ class Newjob extends PureComponent {
                     {getFieldDecorator('Category', {
                       rules: [{ required: true, message: 'ประเภทรายการ' }],
                     })(
-                      <Select placeholder="--ประเภทรายการ--">
+                      <Select placeholder="--ประเภทรายการ--" key="Category">
                         <Option value="ประเภทรายการ 1">ประเภทรายการ 1</Option>
                         <Option value="ประเภทรายการ 2">ประเภทรายการ 2</Option>
                       </Select>
@@ -384,14 +424,14 @@ class Newjob extends PureComponent {
                   <Form.Item label={fieldLabels.Range}>
                     {getFieldDecorator('Range', {
                       rules: [{ required: true, message: 'ระยะเวลาของรายการ' }],
-                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} />)}
+                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} key="Startdate" />)}
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
                   <Form.Item label={fieldLabels.To}>
                     {getFieldDecorator('To', {
                       rules: [{ required: true, message: 'ถึง' }],
-                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} />)}
+                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} key="Enddate" />)}
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 6, offset: 2 }} lg={{ span: 10 }} md={{ span: 12 }} sm={24} />
@@ -432,6 +472,8 @@ class Newjob extends PureComponent {
         </Collapse>
         <FooterToolbar style={{ width }} />
       </PageHeaderWrapper>
+
+     
     );
   }
 }
