@@ -98,25 +98,33 @@ const fieldLabels = {
 // }))
 @Form.create()
 class Newjob extends PureComponent {
-  state = {
+  constructor(props){
+    super(props);
+  
+  this.state = {
     width: '100%',
     Doc: [],
+    data:[],
   };
-
+}
   componentDidMount() {
     window.addEventListener('resize', this.resizeFooterToolbar, { passive: true });
     axios
       .get(`https://nookapi1234.herokuapp.com/api/inbox/getlist`)
       // .then(res => this.setState({ Doc: res.data }))
-      .then(res => res.data)
-      .then(data => {
-        this.setState({
-          Doc: data,
-        });
+      .then((res) =>{
+        this.successShow(res.data[1]);
+        console.log(res.data[1])
       })
-
+      
       .catch(err => console.log(err));
   }
+
+successShow(res){
+  this.setState({
+    Doc:res
+  });
+}
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeFooterToolbar);
@@ -222,7 +230,7 @@ class Newjob extends PureComponent {
                   <Form.Item label={fieldLabels.DocID}>
                     {getFieldDecorator('DocID', {
                       rules: [{ required: true, message: 'เลขที่เอกสาร' }],
-                    })(<Input placeholder="" key="DocID" disabled />)}
+                    })(<Input placeholder={this.state.Doc.docID} key="DocID"  disabled />)}
                   </Form.Item>
                 </Col>
               </Row>
