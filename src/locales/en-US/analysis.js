@@ -11,7 +11,7 @@ export default {
   'app.analysis.day': 'DoD Change',
   // 'app.analysis.payments': 'Payments',
   'app.analysis.conversion-rate': 'Conversion Rate',
-  'app.analysis.operational-effect': 'Operational Effect',
+  // 'app.analysis.operational-effect': 'Operational Effect',
   'app.analysis.sales-trend': 'Stores Sales Trend',
   'app.analysis.sales-ranking': 'Sales Ranking',
   'app.analysis.all-year': 'All Year',
@@ -36,4 +36,5 @@ export default {
   'app.analysis.visits': 'รายเดือน',
   'app.analysis.payments': 'รายไตรมาส',
   'app.analysis.payments2': 'รายปี',
+  'app.analysis.operational-effect': 'รายปี',
 };

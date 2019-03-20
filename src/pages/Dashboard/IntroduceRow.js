@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import { Row, Col, Icon, Tooltip } from 'antd';
 import { FormattedMessage } from 'umi/locale';
-// import styles from './Analysis.less';
-// import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from '@/components/Charts';
-import { ChartCard, MiniArea, MiniBar, Field } from '@/components/Charts';
-// import Trend from '@/components/Trend';
+import styles from './Analysis.less';
+import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from '@/components/Charts';
+// import { ChartCard, MiniArea, MiniBar, Field } from '@/components/Charts';
+import Trend from '@/components/Trend';
 import numeral from 'numeral';
 // import Yuan from '@/utils/Yuan';
 
@@ -107,7 +107,7 @@ const IntroduceRow = memo(({ loading, visitData }) => (
         <MiniBar data={visitData} />
       </ChartCard>
     </Col>
-    <Col {...topColResponsiveProps}>
+    {/* <Col {...topColResponsiveProps}>
       <ChartCard
         bordered={false}
         loading={loading}
@@ -135,15 +135,15 @@ const IntroduceRow = memo(({ loading, visitData }) => (
       >
         <MiniBar data={visitData} />
       </ChartCard>
-    </Col>
-    {/* <Col {...topColResponsiveProps}>
+    </Col> */}
+    <Col {...topColResponsiveProps}>
       <ChartCard
         loading={loading}
         bordered={false}
         title={
           <FormattedMessage
             id="app.analysis.operational-effect"
-            defaultMessage="Operational Effect"
+            defaultMessage="รายปี"
           />
         }
         action={
@@ -170,7 +170,7 @@ const IntroduceRow = memo(({ loading, visitData }) => (
       >
         <MiniProgress percent={78} strokeWidth={8} target={80} color="#13C2C2" />
       </ChartCard>
-    </Col> */}
+    </Col>
   </Row>
 ));
 

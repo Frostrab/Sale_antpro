@@ -16,6 +16,7 @@ const OfflineData = React.lazy(() => import('./OfflineData'));
 @connect(({ chart, loading }) => ({
   chart,
   loading: loading.effects['chart/fetch'],
+  
 }))
 class Analysis extends Component {
   state = {
@@ -105,6 +106,10 @@ class Analysis extends Component {
       salesTypeDataOffline,
     } = chart;
     let salesPieData;
+    console.log(visitData)
+    console.log(visitData2)
+    console.log(salesData)
+    console.log(searchData)
     if (salesType === 'all') {
       salesPieData = salesTypeData;
     } else {
@@ -168,7 +173,7 @@ class Analysis extends Component {
             </Col>
           </Row>
         </div>
-        <Suspense fallback={null}>
+        {/* <Suspense fallback={null}>
           <OfflineData
             activeKey={activeKey}
             loading={loading}
@@ -176,7 +181,7 @@ class Analysis extends Component {
             offlineChartData={offlineChartData}
             handleTabChange={this.handleTabChange}
           />
-        </Suspense>
+        </Suspense> */}
       </GridContent>
     );
   }
