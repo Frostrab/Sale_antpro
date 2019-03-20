@@ -35,7 +35,6 @@ const { Option } = Select;
 
 const Step = Steps.Step;
 
-
 function callback(key) {
   console.log(key);
 }
@@ -47,7 +46,6 @@ function onChange(e) {
 // function onChange2(e) {
 //   console.log(`checked = ${e.target.checked}`);
 // }
-
 
 const fieldLabels = {
   DatePicker: 'วันที่',
@@ -102,68 +100,23 @@ const fieldLabels = {
 class Newjob extends PureComponent {
   state = {
     width: '100%',
-    person:[],
+    Doc: [],
   };
- 
 
   componentDidMount() {
     window.addEventListener('resize', this.resizeFooterToolbar, { passive: true });
+    axios
+      .get(`https://nookapi1234.herokuapp.com/api/inbox/getlist`)
+      // .then(res => this.setState({ Doc: res.data }))
+      .then(res => res.data)
+      .then(data => {
+        this.setState({
+          Doc: data,
+        });
+      })
 
-    // Post
-axios.post('https://digitalsignature.herokuapp.com/api/Values', {
-DocID:'123456',
-Date:'1',
-Coproduct:"A1",
-Applicant:"MR.Call",
-Activities:"ABS",
-Plan:"A23",
-Subplan:"AA23",
-Dealer:"Shop1",
-Category:"Cat1",
-Startdate:"101019",
-Enddate:"121219",
-})
-.then(function (response) {
-  console.log(response);
-})
-.catch(function (error) {
-  console.log(error);
-});
-// Post
-
-    // Test Axios
-    axios.get('https://digitalsignature.herokuapp.com/api/Values')
-  .then(function (response) {
-    // handle success
-    console.log(`aa`,response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .then(function () {
-    // always executed
-  });
-  // End Axios
+      .catch(err => console.log(err));
   }
-
-// For Get API
-UserList() {
-  $.getJSON('https://randomuser.me/api/')
-    .then(({ results }) => this.setState({ person: results }));
-}
-
-render() {
-  const persons = this.state.person.map((item, i) => (
-    <div>
-      <h1>{ item.name.first }</h1>
-      <span>{ item.cell }, { item.email }</span>
-    </div>
-  ));}
-// For Get API
-
-
-
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resizeFooterToolbar);
@@ -248,9 +201,7 @@ render() {
     } = this.props;
     const { width } = this.state;
 
-  
     return (
-     
       <PageHeaderWrapper
         title="สร้างแผนงาน"
         // content="รายละเอียด"
@@ -271,7 +222,7 @@ render() {
                   <Form.Item label={fieldLabels.DocID}>
                     {getFieldDecorator('DocID', {
                       rules: [{ required: true, message: 'เลขที่เอกสาร' }],
-                    })(<Input placeholder="" key="DocID" disabled/>)}
+                    })(<Input placeholder="" key="DocID" disabled />)}
                   </Form.Item>
                 </Col>
               </Row>
@@ -281,7 +232,13 @@ render() {
                   <Form.Item label={fieldLabels.DatePicker}>
                     {getFieldDecorator('DatePicker', {
                       rules: [{ required: true, message: 'วันที่' }],
-                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} key="Date"/>)}
+                    })(
+                      <DatePicker
+                        placeholder={['Select Date']}
+                        style={{ width: '100%' }}
+                        key="Date"
+                      />
+                    )}
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24} />
@@ -424,14 +381,26 @@ render() {
                   <Form.Item label={fieldLabels.Range}>
                     {getFieldDecorator('Range', {
                       rules: [{ required: true, message: 'ระยะเวลาของรายการ' }],
-                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} key="Startdate" />)}
+                    })(
+                      <DatePicker
+                        placeholder={['Select Date']}
+                        style={{ width: '100%' }}
+                        key="Startdate"
+                      />
+                    )}
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 6, offset: 2 }} lg={{ span: 8 }} md={{ span: 12 }} sm={24}>
                   <Form.Item label={fieldLabels.To}>
                     {getFieldDecorator('To', {
                       rules: [{ required: true, message: 'ถึง' }],
-                    })(<DatePicker placeholder={['Select Date']} style={{ width: '100%' }} key="Enddate" />)}
+                    })(
+                      <DatePicker
+                        placeholder={['Select Date']}
+                        style={{ width: '100%' }}
+                        key="Enddate"
+                      />
+                    )}
                   </Form.Item>
                 </Col>
                 <Col xl={{ span: 6, offset: 2 }} lg={{ span: 10 }} md={{ span: 12 }} sm={24} />
@@ -472,8 +441,6 @@ render() {
         </Collapse>
         <FooterToolbar style={{ width }} />
       </PageHeaderWrapper>
-
-     
     );
   }
 }
